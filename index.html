@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>GRAPH THEORY SIMULATOR</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<script type="text/javascript" src="datastructure.js"></script>
+		<script type="text/javascript" src="graph1.js"></script>
+		<script type="text/javascript" src="node.js"></script>
+		<script type="text/javascript" src="line.js"></script>
+		<script type="text/javascript" src="handeler1.js"></script>
+		<script src="https://kit.fontawesome.com/b3c13af3c0.js" crossorigin="anonymous"></script>  
+	</head>
+	<body >
+	<div class="dialog-mes" id="ifdfs">
+		<button class="close-dialog" id="close-dfs"><i class="far fa-times-circle"></i></button>
+		<h2>Depth first search</h2>
+		<h3>Connectivity</h3>
+		<p>An undirected graph is said to be connected if any node is reachable from any other node by traversing one or more edges. Below you can see two graphs: the one on the left is connected, while the one on the right is not.</p>
+		<img src="./img/gp.png">
+		<p>If we take a closer look at the second graph, we can see that the nodes 00, 11, 22 and 33 form a separate component, while the nodes 44 and 55 form another one. In each of these two components there is a path between every two nodes. This kind of subset of nodes is called a connected component.</p>
+		<h3>Graph Traversal</h3>
+		<p>The problem of traversing a graph refers to visiting all the nodes in a particular order, usually computing some other useful information along the way. The most common algorithms used for graph traversal are the BFS (breadth first search) and the DFS (depth first search).</p>
+		<h3>DFS algorithm</h3>
+		<p>The depth-first search, or in short, DFS, traverses all the nodes that are reachable from a starting node. This algorithm is quite easy to understand and implement, making it a top option when trying to check if a graph is connected or not:</p>
+	<ul>
+		<li>First it visits the starting node, which we call the root, and pushes it in a stack.</li>
+		<li>While the stack is not empty, the node at the top is examined and one of these two actions takes place:
+		<ul>
+			<li>If the node has unvisited neighbours, one of them is chosen, visited and pushed in the stack.</li>
+			<li>Otherwise, if all the node's neighbours had previously been visited the node presents no further interest and it is popped from the stack.</li>
+		</ul>
+		</li>
+		<li>When the stack becomes empty it means that all the accessible nodes have been visited, so the algorithm ends.</li>
+	</ul>
+	</div>
+
+	<div class="dialog-mes" id="ifbfs">
+		<button class="close-dialog" id="close-bfs"><i class="far fa-times-circle"></i></button>
+		<h2>Breadth first search</h2>
+		<h3>Connectivity</h3>
+		<p>An undirected graph is said to be connected if any node is reachable from any other node by traversing one or more edges. Below you can see two graphs: the one on the left is connected, while the one on the right is not.</p>
+		<img src="./img/gp.png">
+		<p>If we take a closer look at the second graph, we can see that the nodes 00, 11, 22 and 33 form a separate component, while the nodes 44 and 55 form another one. In each of these two components there is a path between every two nodes. This kind of subset of nodes is called a connected component.</p>
+		<h3>Graph Traversal</h3>
+		<p>The problem of traversing a graph refers to visiting all the nodes in a particular order, usually computing some other useful information along the way. The most common algorithms used for graph traversal are the BFS (breadth first search) and the DFS (depth first search).</p>
+		<h3>BFS algorithm</h3>
+		<p>The breadth-first search algorithm, or in short, BFS, is one of the most common algorithms used to determine if a graph is connected or not. The steps of the BFS are the following:</p>
+		<ul>
+		<li>Start by visiting one arbitrary vertex, which we call the root.</li>
+		<li>Visit all the root's neighbours and push them into a queue.</li>
+		<li>Pop the first node from the queue, visit all its neighbours and push into the queue those neighbours that have not been previously visited.</li>
+		<li>Repeat step 3 while the queue is not empty.</li>
+		<li>Finally, when the queue becomes empty it means all the reachable nodes have been visited, so the algorithm finishes.</li>
+		</ul>
+	</div>
+
+	<div class="dialog-mes" id="ifmna">
+		<button class="close-dialog" id="close-mna"><i class="far fa-times-circle"></i></button>
+		<h2>Feature</h2>
+		<ul>
+			<li>Draw and edit graphs as you like(no cost).</li>
+			<li>Run Deepth Fist Search.</li>
+			<li>Run Breadth Fist Search.</li>
+			<li>Save graph and open graph.</li>
+		</ul>
+	</div>
+
+	<div id="container">
+  		<div id="header">
+  			<ul class="menu">
+  				<li class="drop">
+  					<img id="im" src="./img/icon1.png"> 
+  					<ul class="submenu">
+  						<li id="abbfs">About BFS</li>
+  						<li id="abdfs">About DFS</li>
+  						<li id="mna">Feature</li>
+  					</ul>
+  				</li>
+  				<li>
+  					<div id ="tlmenu" >GRAPH TRAVERSAL SIMULATOR</div>
+  				</li>
+  			</ul>
+  			
+  			<div class="dic"><span  >Direct : </span><input type = "checkbox" id="direct"> </div>
+  		</div>
+
+  		<div id="tlg">
+  			<div>EDIT GRAPH</div>
+  		</div>
+
+  		<div id="tlp">
+  			<div>PROCESS</div>
+  		</div>
+
+  		<div id="draw">
+  			<canvas class="canvas" id="cs"></canvas>
+  		</div>
+
+  		<div id="mess">
+  		
+  			<div id="messages"></div>
+  		</div>
+
+  		<div id="bt">
+	  		
+  			<button data-content = "Draw vertexs" class="css-bt" id="drawnode"><i class="fas fa-plus-circle"></i></button>
+			<!-- draw node -->
+
+			<button data-content = "Delete vertex selected" class="css-bt" id="clsr1"><i class="far fa-times-circle"></i></button>
+			<!-- clear one -->	
+
+			<button data-content = "Draw edges" class="css-bt" id="db"><i class="fas fa-exchange-alt"></i></button>
+			<!-- draw line -->
+
+			<button data-content = "Delete edge seleted" class="css-bt" id="clearline"><i class="fas fa-cut"></i></button>
+			<!-- clear line -->
+
+			<button data-content = "Select and move vertex or edge" class="css-bt" id="dr"><i class="fas fa-hand-pointer"></i></button>
+			<!-- move and select -->
+
+			<button data-content = "Delete graph" class="css-bt" id="clsr"><i class="fas fa-trash-alt"></i></button>
+			<!-- clear graph-->
+
+			<button data-content = "Reset Graph after traversal"  class="css-bt" id="reset"><i class="fas fa-retweet"></i></button>
+			 <!-- reset  -->
+			
+			<button data-content = "Run Breadth first search" class="css-bt" id="bfseach" >BFS</button>
+			 <!-- BFS -->
+
+			<button data-content = "Run Deepth first search" class="css-bt" id="dfseach">DFS</button> 
+			<!-- DFS -->
+
+			<label data-content ="Open graph" class="css-file">
+				<i class="far fa-folder-open"></i>
+				<input type="file" name="" id="myfile">
+			</label>
+			<!-- open Graph -->
+			<a data-content ="Save graph" class="css-file" id="saveOutput" href="#" onClick="savedata(this)"><i class="far fa-save"></i></a>
+			<!-- save -->
+
+  		</div>
+  		<div id="footer"><p>version: 1.0(15/2/2020), author: Nhut Huy</p></div>
+	</div>
+
+		
+		<!-- =============================================JAVASCRIPT======================================================== -->
+		<script type="text/javascript">
+			var color = {
+    			node_fill_selected : "#FB6205",
+    			node_stroke_selected : "black",
+    			node_fill_traversal : "black",
+    			node_stroke_traversal: "#FB6205" ,
+    			line_stroke_selected : "red",
+    			line_stroke_traversal: "#FB6205",
+    			index_stroke_selected : "black",
+    			index_stroke_traversal: "#FB6205"
+    		}
+
+
+			var indexverFront ="bold" + rect_size + "px serif";
+			var line_width_arc = 1.75;
+			var line_width_index = 1;
+			var line_width_line = 1.75;
+			var undirect = true;
+			var isdrawpoint = true;
+			var moving =false;
+			var isdrawline = false;
+			var rect_size = 20;
+			var cnv;
+			var c;
+			var list = new listnode();
+			var listl = new listline();
+			var arattribute = {
+				w:10,	
+				h:5
+			}
+			
+			//========================================================================================
+
+
+			var closeDFS = document.getElementById("close-dfs");
+				closeDFS.addEventListener("click",closedialog);
+			var closeBFS = document.getElementById("close-bfs");
+				closeBFS.addEventListener("click",closedialog);
+
+			var closeMNA = document.getElementById("close-mna");
+				closeMNA.addEventListener("click",closedialog);
+
+			var abdfs = document.getElementById("abdfs");
+		        abdfs.addEventListener('click',function(){
+		        	closedialog();
+		        	document.getElementById("ifdfs").style.display='block'});
+
+		    var abbfs = document.getElementById("abbfs");
+		        abbfs.addEventListener('click',function(){
+		        	closedialog();	
+		        	document.getElementById("ifbfs").style.display='block'});    
+
+		    var mna = document.getElementById("mna");
+		        mna.addEventListener('click',function(){
+		        	closedialog();	
+		        	document.getElementById("ifmna").style.display='block'});    
+
+			var loadgraph = document.getElementById("myfile");
+		        loadgraph.addEventListener('change',loaddata);
+			var cl = document.getElementById("clsr");
+		        cl.addEventListener('click',clear);
+			var cl1 = document.getElementById("clsr1");
+		         cl1.addEventListener('click',clear1node);
+			var db = document.getElementById("db");
+			 	db.addEventListener("click",endrawline);        
+			var dr = document.getElementById("dr");
+			 	dr.addEventListener("click",undraw);
+			var clearline = document.getElementById("clearline");
+				clearline.addEventListener("click",clear1line);
+			var drnode = document.getElementById("drawnode");
+				drnode.addEventListener("click",endrawnode);
+			var checkdirect = document.getElementById("direct");
+				checkdirect.addEventListener("click",checkdir);
+			var bfseach = document.getElementById("bfseach");
+				bfseach.addEventListener("click",
+					function(){
+						undraw();
+						if(list.itemseleted)
+							{
+								var start = list.itemseleted.indexVertex;
+								list.itemseleted = null;
+								list.indexselected = -1;
+								
+								breadthfirstseach(start);		
+							}
+						else
+							breadthfirstseach(1);
+					});
+
+			var dfseach = document.getElementById("dfseach");
+				dfseach.addEventListener("click",
+					function(){
+						undraw();
+						if(list.itemseleted)
+							{
+								var start = list.itemseleted.indexVertex;
+								list.itemseleted = null;
+								list.indexselected = -1;
+								
+								deapthfirstseachstack(start);		
+							}
+						else
+							deapthfirstseachstack(1);
+					});	
+			var reset = document.getElementById("reset");
+				reset.addEventListener("click",resetgraph);
+
+			
+			var cnv = document.getElementById("cs");
+			var wc = document.getElementById("draw").offsetWidth;
+			console.log(wc);
+			cnv.setAttribute('width',wc);
+			cnv.setAttribute('height' , "500");
+			var c = cnv.getContext("2d");
+			
+			cnv.addEventListener("click",selectedline);
+			cnv.addEventListener("mousedown",onmousedown);
+			cnv.addEventListener("mousemove",onmousemove);
+			cnv.addEventListener("mouseup",onmouseup);
+
+		</script>
+	</body>
+</html>
